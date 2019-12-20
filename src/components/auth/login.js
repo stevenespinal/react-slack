@@ -35,11 +35,14 @@ class Login extends Component {
       });
       firebase.auth().signInWithEmailAndPassword(email, password).then(signedInUser => {
         console.log(signedInUser);
+        this.setState({
+          loading: false
+        });
       }).catch(error => {
         this.setState({
           errors: errors.concat(error),
           loading: false
-        })
+        });
       })
     }
   };
