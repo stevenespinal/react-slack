@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Grid, Form, Segment, Button, Header, Message, Icon} from 'semantic-ui-react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import firebase from '../../firebase';
 import md5 from 'md5';
 
@@ -75,7 +75,7 @@ class Register extends Component {
     if (this.isFormValid()) {
       firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(createdUser => {
-          console.log("User has been created", createdUser);
+          // console.log("User has been created", createdUser);
           createdUser.user.updateProfile({
               displayName: username,
               photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`
@@ -85,7 +85,8 @@ class Register extends Component {
                 .then(() => {
                   console.log("User Saved");
                   this.setState({
-                    loading: false
+                    loading: false,
+                    createdUser: createdUser.user.uid
                   });
                 })
             })
@@ -118,7 +119,6 @@ class Register extends Component {
   saveUser = createdUser => {
     const {usersRef} = this.state;
     const {displayName, photoURL} = createdUser.user;
-    console.log("Your info returned",createdUser);
     return usersRef.child(createdUser.user.uid).set({
       name: displayName || null,
       avatar: photoURL || null
@@ -132,7 +132,8 @@ class Register extends Component {
   displayErrors = errors => errors.map((err, i) => <p key={i}>{err.message}</p>);
 
   render() {
-    const {username, email, password, passwordConfirmation, errors, loading} = this.state;
+    const {username, email, password, passwordConfirmation, errors, loading, createdUser} = this.state;
+    if (createdUser) return <Redirect to="/login"/>;
     return (
       <Grid textAlign="center" verticalAlign="middle" className="App">
         <Grid.Column style={{maxWidth: "450px"}}>
