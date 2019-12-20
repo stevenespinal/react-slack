@@ -5,13 +5,10 @@ import firebase from '../../firebase';
 
 class Login extends Component {
   state = {
-    username: '',
     email: '',
     password: '',
-    passwordConfirmation: '',
     errors: [],
     loading: false,
-    usersRef: firebase.database().ref('users')
   };
 
   handleChange = (event) => {
@@ -21,16 +18,29 @@ class Login extends Component {
     })
   };
 
+  isFormValid = ({email, password}) => {
+    return email && password
+  };
+
 
   handleSubmit = (event) => {
     event.preventDefault();
-    if (this.isFormValid()) {
+    const {email, password, errors} = this.state;
+    if (this.isFormValid(this.state)) {
       this.setState({
         email: '',
         password: '',
         errors: [],
         loading: true
       });
+      firebase.auth().signInWithEmailAndPassword(email, password).then(signedInUser => {
+        console.log(signedInUser);
+      }).catch(error => {
+        this.setState({
+          errors: errors.concat(error),
+          loading: false
+        })
+      })
     }
   };
 
