@@ -22,7 +22,6 @@ class Login extends Component {
     return email && password
   };
 
-
   handleSubmit = (event) => {
     event.preventDefault();
     const {email, password, errors} = this.state;
@@ -46,7 +45,6 @@ class Login extends Component {
       })
     }
   };
-
 
   handleInputErrors = (errors, inputName) => {
     return errors.some(error => error.message.toLocaleLowerCase().includes(inputName)) ? "error" : ""
