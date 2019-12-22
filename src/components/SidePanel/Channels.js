@@ -12,6 +12,22 @@ class Channels extends Component {
     user: this.props.currentUser
   };
 
+  componentDidMount() {
+    this.addListeners();
+  }
+
+  addListeners = () => {
+    let loadedChannels = [];
+    const {channelsRef} = this.state;
+    channelsRef.on("child_added", snap => {
+      loadedChannels.push(snap.val());
+      // console.log(loadedChannels);
+      this.setState({
+        channels: loadedChannels
+      })
+    });
+  };
+
   closeModal = () => {
     this.setState({
       modal: false
@@ -65,6 +81,16 @@ class Channels extends Component {
     })
   };
 
+  displayChannels = channels => (
+    channels.length > 0 && channels.map(channel => {
+      return (
+        <Menu.Item key={channel.id} onClick={() => console.log(channel)} name={channel.name} style={{opacity: 0.7}}>
+          # {channel.name}
+        </Menu.Item>
+      )
+    })
+  );
+
   render() {
     const {channels, modal} = this.state;
     return (
@@ -75,6 +101,7 @@ class Channels extends Component {
             <Icon name="exchange"/> CHANNELS </span>
             ({channels.length}) <Icon name="add" className="plus-sign" onClick={this.openModal}/>
           </Menu.Item>
+          {this.displayChannels(channels)}
         </Menu.Menu>
         <Modal basic open={modal} onClose={this.closeModal}>
           <Modal.Header>Add a Channel</Modal.Header>
