@@ -3,3 +3,8 @@ html, body, .App {
     background: #eee;
     padding: 1em;
 }
+
+.plus-sign:hover {
+    color: white;
+    cursor: pointer;
+}
