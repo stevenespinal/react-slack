@@ -12,7 +12,7 @@ import {Provider} from 'react-redux';
 import {composeWithDevTools} from "redux-devtools-extension";
 import * as serviceWorker from './serviceWorker';
 import rootReducer from "./reducers";
-import {setUser} from './actions/index';
+import {setUser, clearUser} from './actions/index';
 import Spinner from "./Spinner";
 
 const store = createStore(rootReducer, composeWithDevTools());
@@ -25,9 +25,11 @@ class Root extends Component {
       if (user) {
         this.props.setUser(user);
         this.props.history.push("/")
+      } else {
+        this.props.history.push("/login");
+        this.props.clearUser()
       }
     });
-    // firebase.auth().signOut()
   };
 
   render() {
@@ -50,7 +52,7 @@ const mapStateToProps = (state) => {
 };
 
 //Higher order component
-const RootWithAuth = withRouter(connect(mapStateToProps, {setUser})(Root));
+const RootWithAuth = withRouter(connect(mapStateToProps, {setUser, clearUser})(Root));
 
 
 ReactDOM.render(
