@@ -4,7 +4,7 @@ html, body, .App {
     padding: 1em;
 }
 
-.plus-sign:hover {
+.plus-sign:hover, .channels:hover {
     color: white;
     cursor: pointer;
 }

@@ -1,6 +1,8 @@
 import React, {Component, Fragment} from 'react';
 import {Menu, Icon, Modal, Form, Input, Button} from "semantic-ui-react";
 import firebase from '../../firebase';
+import {connect} from 'react-redux';
+import {setCurrentChannel} from "../../actions";
 
 class Channels extends Component {
   state = {
@@ -9,7 +11,9 @@ class Channels extends Component {
     channelName: "",
     channelDetails: "",
     channelsRef: firebase.database().ref('channels'),
-    user: this.props.currentUser
+    user: this.props.currentUser,
+    firstLoad: true,
+    activeChannel: ""
   };
 
   componentDidMount() {
@@ -24,8 +28,22 @@ class Channels extends Component {
       // console.log(loadedChannels);
       this.setState({
         channels: loadedChannels
-      })
+      }, () => this.setFirstChannel())
     });
+  };
+
+  setFirstChannel = () => {
+    const {firstLoad, channels} = this.state;
+    const {setCurrentChannel} = this.props;
+    const firstChannel = channels[0];
+
+    if (firstLoad && channels.length > 0) {
+      setCurrentChannel(firstChannel);
+      this.setActiveChannel(firstChannel)
+    }
+    this.setState({
+      firstLoad: false
+    })
   };
 
   closeModal = () => {
@@ -84,12 +102,23 @@ class Channels extends Component {
   displayChannels = channels => (
     channels.length > 0 && channels.map(channel => {
       return (
-        <Menu.Item key={channel.id} onClick={() => console.log(channel)} name={channel.name} style={{opacity: 0.7}}>
-          # {channel.name}
+        <Menu.Item key={channel.id} onClick={() => this.changeChannel(channel)} name={channel.name} style={{opacity: 0.7}} active={channel.id === this.state.activeChannel}>
+          <span className="channels"># {channel.name}</span>
         </Menu.Item>
       )
     })
   );
+
+  changeChannel = channel => {
+    this.props.setCurrentChannel(channel);
+    this.setActiveChannel(channel);
+  };
+
+  setActiveChannel = (channel) => {
+    this.setState({
+      activeChannel: channel.id
+    })
+  };
 
   render() {
     const {channels, modal} = this.state;
@@ -129,4 +158,4 @@ class Channels extends Component {
   }
 }
 
-export default Channels;
+export default connect(null, {setCurrentChannel})(Channels);
