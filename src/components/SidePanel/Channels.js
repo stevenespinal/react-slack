@@ -20,6 +20,16 @@ class Channels extends Component {
     this.addListeners();
   }
 
+  componentWillUnmount() {
+    this.removeListeners();
+  }
+
+  removeListeners = () => {
+    const {channelsRef} = this.state;
+    // stops listening & will unsubscribe itself from channels ref
+    channelsRef.off();
+  };
+
   addListeners = () => {
     let loadedChannels = [];
     const {channelsRef} = this.state;
