@@ -45,7 +45,7 @@ class Root extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log("State",state);
+  console.log("State",state);
   return {
     isLoading: state.user.isLoading
   }
