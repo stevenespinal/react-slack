@@ -9,10 +9,9 @@ html, body, .App {
     cursor: pointer;
 }
 
-
 .messages {
-    height: 440px;
-    overflow-y: auto;
+    height: 62vh;
+    overflow-y: scroll;
 }
 
 .message__form {
@@ -22,4 +21,9 @@ html, body, .App {
     left: 0;
     right: 1em;
     z-index: 200;
+}
+
+.message__self {
+    border-left: 2px solid orange;
+    padding-left: 8px;
 }

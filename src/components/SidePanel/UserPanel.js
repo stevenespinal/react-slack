@@ -41,7 +41,7 @@ class UserPanel extends Component {
               <Icon name="code"/>
               <Header.Content>Dev Chat</Header.Content>
             </Header>
-            <Header style={{padding: "0.25em"}} as="h3" inverted>
+            <Header style={{padding: "0.25em"}} as="h4" inverted>
               <Dropdown trigger={
                 <span>
                 <Image src={user.photoURL} spaced="right" avatar />

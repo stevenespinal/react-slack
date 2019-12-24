@@ -59,14 +59,14 @@ class MessageForm extends Component {
   };
 
   render() {
-    const {errors, message} = this.state;
+    const {errors, message, loading} = this.state;
     return (
       <Segment className="message__form">
         <Input fluid name="message" style={{marginBottom: "0.7em"}} label={<Button icon="add"/>} labelPosition="left"
                placeholder="Write your message" onChange={this.handleChange} value={message}
                className={errors.some(err => err.message.includes('message')) ? 'error' : ''}/>
         <Button.Group icon widths="2">
-          <Button color="orange" content="Add Reply" labelPosition="left" icon="edit" onClick={this.sendMessage}/>
+          <Button color="orange" content="Add Reply" labelPosition="left" icon="edit" onClick={this.sendMessage} disabled={loading}/>
           <Button color="teal" content="Upload Media" labelPosition="right" icon="cloud upload"/>
         </Button.Group>
       </Segment>
