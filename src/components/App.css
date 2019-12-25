@@ -10,9 +10,10 @@ html, body, .App {
 }
 
 .messages {
-    height: 62vh;
+    height: 70vh;
     overflow-y: scroll;
 }
+
 
 .message__form {
     position: fixed !important;
@@ -30,4 +31,8 @@ html, body, .App {
 
 .message__image {
     padding: 1em;
+}
+
+.progress__bar {
+    margin: 0.3em 0 0 0 !important;
 }
