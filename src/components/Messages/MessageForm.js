@@ -33,13 +33,13 @@ class MessageForm extends Component {
         id: currentUser.uid,
         name: currentUser.displayName,
         avatar: currentUser.photoURL
-      },
+      }
     };
 
     if (fileUrl !== null) {
-      message['image'] = fileUrl
+      newMessage["image"] = fileUrl
     } else {
-      message['content'] = message;
+      newMessage["content"] = message;
     }
 
     return newMessage;
@@ -123,16 +123,15 @@ class MessageForm extends Component {
   };
 
   sendFileMessage = (fileUrl, ref, pathToUpload) => {
-    ref.child(pathToUpload).push().set(this.createMessage(fileUrl)).then(() => {
-      this.setState({
-        uploadState: 'done',
-      })
-    }).catch((err => {
+    ref.child(pathToUpload).push().set(this.createMessage(fileUrl))
+      .then(() => {
+      this.setState({uploadState: 'done'});
+    }).catch(err => {
       console.error(err);
       this.setState({
         errors: this.state.errors.concat(err)
       })
-    }))
+    })
   };
 
   render() {
