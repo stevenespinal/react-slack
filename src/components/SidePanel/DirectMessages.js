@@ -6,11 +6,13 @@ import {setCurrentChannel, setPrivateChannel} from "../../actions";
 
 class DirectMessages extends Component {
   state = {
+    activeChannel: '',
     user: this.props.currentUser,
     users: [],
     usersRef: firebase.database().ref('users'),
     connectedRef: firebase.database().ref('.info/connected'),
-    presenceRef: firebase.database().ref('presence')
+    presenceRef: firebase.database().ref('presence'),
+    currentChannel: this.props.setCurrentChannel(),
   };
 
   componentDidMount() {
@@ -28,7 +30,6 @@ class DirectMessages extends Component {
         let user = snap.val();
         user['uid'] = snap.key;
         user['status'] = 'offline';
-
         loadedUsers.push(user);
         this.setState({
           users: loadedUsers
@@ -79,7 +80,12 @@ class DirectMessages extends Component {
       name: user.name
     };
     this.props.setCurrentChannel(channelData);
-    this.props.setPrivateChannel(true)
+    this.props.setPrivateChannel(true);
+    this.setActiveChannel(user.uid)
+  };
+
+  setActiveChannel = userId => {
+    this.setState({activeChannel: userId})
   };
 
   getChannelId = userId => {
@@ -88,15 +94,17 @@ class DirectMessages extends Component {
   };
 
   render() {
-    const {users} = this.state;
+    const {users, activeChannel} = this.state;
     return (
       <Menu.Menu className="menu">
         <Menu.Item>
           <span><Icon name="mail"/>DIRECT MESSAGES</span> ({users.length})
         </Menu.Item>
         {users.map(user => (
-          <Menu.Item key={user.uid} onClick={() => this.changeChannel(user)} style={{opacity: 0.7, fontStyle: 'italic'}}>
+          <Menu.Item active={user.uid === activeChannel} key={user.uid} onClick={() => this.changeChannel(user)}
+                     style={{opacity: 0.7, fontStyle: 'italic'}}>
             <Icon name="circle" color={this.isUserOnline(user) ? 'green' : 'red'}/> @ {user.name}
+            {console.log(user.uid)}
           </Menu.Item>
         ))}
       </Menu.Menu>

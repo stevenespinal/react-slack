@@ -3,11 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="9b0614fa-38a5-4bbb-9f0e-b1cf6f2ad5e9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Messages/MessageForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Messages/MessageForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Messages/Messages.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Messages/Messages.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Messages/MessagesHeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Messages/MessagesHeader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/types.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/SidePanel/Channels.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SidePanel/Channels.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SidePanel/DirectMessages.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SidePanel/DirectMessages.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +90,7 @@
       <updated>1576861341409</updated>
       <workItem from="1576861342835" duration="36444000" />
       <workItem from="1577218063685" duration="4127000" />
-      <workItem from="1577298528298" duration="9349000" />
+      <workItem from="1577298528298" duration="12183000" />
     </task>
     <servers />
   </component>
