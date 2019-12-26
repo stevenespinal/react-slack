@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9b0614fa-38a5-4bbb-9f0e-b1cf6f2ad5e9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Messages/Messages.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Messages/Messages.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/SidePanel/Channels.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SidePanel/Channels.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SidePanel/DirectMessages.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SidePanel/DirectMessages.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,10 +94,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="616" y="240" key="run.anything.popup" timestamp="1577063732757">
+    <state x="616" y="240" key="run.anything.popup" timestamp="1577338760390">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1577063732757" />
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1577338760390" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1577326537344">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

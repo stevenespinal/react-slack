@@ -8,10 +8,13 @@ class Channels extends Component {
   state = {
     activeChannel: '',
     channels: [],
+    channel: null,
     modal: false,
     channelName: "",
     channelDetails: "",
     channelsRef: firebase.database().ref('channels'),
+    messagesRef: firebase.database().ref('messages'),
+    notifications: [],
     user: this.props.currentUser,
     firstLoad: true,
   };
@@ -38,8 +41,43 @@ class Channels extends Component {
       // console.log(loadedChannels);
       this.setState({
         channels: loadedChannels
-      }, () => this.setFirstChannel())
+      }, () => this.setFirstChannel());
+      this.addNotificationListener(snap.key);
     });
+  };
+
+  addNotificationListener = channelId => {
+    const {messagesRef, channel, notifications} = this.state;
+    messagesRef.child(channelId).on('value', snap => {
+      if (channel) {
+        this.handleNotifications(channelId, channel.id, notifications, snap)
+      }
+    });
+  };
+
+  handleNotifications = (channelId, currentChannelId, notifications, snap) => {
+    let lastTotal = 0;
+    //any notification in a given channel
+    let index = notifications.findIndex(notification => notification.id === channelId);
+    if (index !== -1) {
+      if (channelId !== currentChannelId) {
+        lastTotal = notifications[index].total;
+
+        if (snap.numChildren() - lastTotal > 0) {
+          notifications[index].count = snap.numChildren() - lastTotal;
+        }
+      }
+      notifications[index].lastKnownTotal = snap.numChildren();
+    } else {
+      notifications.push({
+        id: channelId,
+        total: snap.numChildren(),
+        lastKnownTotal: snap.numChildren(),
+        count: 0
+      });
+    }
+
+    this.setState({notifications});
   };
 
   setFirstChannel = () => {
@@ -124,6 +162,9 @@ class Channels extends Component {
     this.props.setCurrentChannel(channel);
     this.setActiveChannel(channel);
     this.props.setPrivateChannel(false);
+    this.setState({
+      channel
+    })
   };
 
   setActiveChannel = (channel) => {
