@@ -78,21 +78,24 @@ class Messages extends Component {
     //globally & case insensitively
     const regex = new RegExp(this.state.searchTerm, 'gi');
     const searchResults = channelMessages.reduce((acc, message) => {
-      if (message.content && message.content.match(regex)) {
+      if (message.content && message.content.match(regex) || message.user.name.match(regex)) {
         acc.push(message);
       }
       return acc;
     }, []);
     this.setState({
-      searchResults
-    })
+      searchResults,
+    });
+    setTimeout(() => {
+      this.setState({searchLoading: false})
+    }, 1000)
   };
 
   render() {
-    const {messagesRef, channel, currentUser, messages, numUniqueUsers, searchResults, searchTerm} = this.state;
+    const {messagesRef, channel, currentUser, messages, numUniqueUsers, searchResults, searchTerm, searchLoading} = this.state;
     return (
       <Fragment>
-        <MessagesHeader channelName={this.displayChannelName(channel)} numUniqueUsers={numUniqueUsers} handleSearchChange={this.handleSearchChange}/>
+        <MessagesHeader channelName={this.displayChannelName(channel)} numUniqueUsers={numUniqueUsers} handleSearchChange={this.handleSearchChange} searchLoading={searchLoading}/>
         <Segment className="messages">
           <Comment.Group>
             {searchTerm ? this.displayMessages(searchResults) : this.displayMessages(messages)}
