@@ -34,7 +34,6 @@ class Messages extends Component {
 
   addMessageListener = channelId => {
     let loadedMessages = [];
-    const {messagesRef} = this.state;
     const ref = this.getMessagesRef();
     ref.child(channelId).on("child_added", snap => {
       loadedMessages.push(snap.val());
@@ -83,7 +82,7 @@ class Messages extends Component {
     //globally & case insensitively
     const regex = new RegExp(this.state.searchTerm, 'gi');
     const searchResults = channelMessages.reduce((acc, message) => {
-      if (message.content && message.content.match(regex) || message.user.name.match(regex)) {
+      if (message.content && (message.content.match(regex) || message.user.name.match(regex))) {
         acc.push(message);
       }
       return acc;

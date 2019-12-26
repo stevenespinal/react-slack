@@ -2,11 +2,11 @@ import React, {Component, Fragment} from 'react';
 import {Menu, Icon, Modal, Form, Input, Button} from "semantic-ui-react";
 import firebase from '../../firebase';
 import {connect} from 'react-redux';
-import {setCurrentChannel, setPrivateChannel, setActiveChannel} from "../../actions";
+import {setCurrentChannel, setPrivateChannel} from "../../actions";
 
 class Channels extends Component {
   state = {
-    activeChannel: this.props.setActiveChannel(''),
+    activeChannel: '',
     channels: [],
     modal: false,
     channelName: "",
@@ -14,7 +14,6 @@ class Channels extends Component {
     channelsRef: firebase.database().ref('channels'),
     user: this.props.currentUser,
     firstLoad: true,
-    // activeChannel: ""
   };
 
   componentDidMount() {
@@ -123,11 +122,8 @@ class Channels extends Component {
 
   changeChannel = channel => {
     this.props.setCurrentChannel(channel);
-    // this.setActiveChannel(channel);
+    this.setActiveChannel(channel);
     this.props.setPrivateChannel(false);
-    this.setState({
-      activeChannel: channel.id
-    })
   };
 
   setActiveChannel = (channel) => {
@@ -174,4 +170,4 @@ class Channels extends Component {
   }
 }
 
-export default connect(null, {setCurrentChannel, setPrivateChannel, setActiveChannel})(Channels);
+export default connect(null, {setCurrentChannel, setPrivateChannel})(Channels);

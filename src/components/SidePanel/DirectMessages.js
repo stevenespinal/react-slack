@@ -104,7 +104,6 @@ class DirectMessages extends Component {
           <Menu.Item active={user.uid === activeChannel} key={user.uid} onClick={() => this.changeChannel(user)}
                      style={{opacity: 0.7, fontStyle: 'italic'}}>
             <Icon name="circle" color={this.isUserOnline(user) ? 'green' : 'red'}/> @ {user.name}
-            {console.log(user.uid)}
           </Menu.Item>
         ))}
       </Menu.Menu>
