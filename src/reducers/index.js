@@ -1,9 +1,10 @@
-import {CLEAR_USER, SET_USER, SET_CURRENT_CHANNEL} from "../actions/types";
+import {CLEAR_USER, SET_USER, SET_CURRENT_CHANNEL, SET_PRIVATE_CHANNEL} from "../actions/types";
 import {combineReducers} from "redux";
 
 const initialUserState = {
   currentUser: null,
-  isLoading: true
+  isLoading: true,
+  isPrivateChannel: false
 };
 
 const user_reducer = (state = initialUserState, action) => {
@@ -27,12 +28,17 @@ const initialChannelState = {
   currentChannel: null
 };
 
-const channel_reducer = (state= initialChannelState, action) => {
+const channel_reducer = (state = initialChannelState, action) => {
   switch (action.type) {
     case SET_CURRENT_CHANNEL:
       return {
         ...state,
         currentChannel: action.payload.currentChannel
+      };
+    case SET_PRIVATE_CHANNEL:
+      return {
+        ...state,
+        isPrivateChannel: action.payload.isPrivateChannel
       };
     default:
       return state;
