@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {Menu, Icon, Modal, Form, Input, Button} from "semantic-ui-react";
+import {Menu, Icon, Modal, Form, Input, Button, Label} from "semantic-ui-react";
 import firebase from '../../firebase';
 import {connect} from 'react-redux';
 import {setCurrentChannel, setPrivateChannel} from "../../actions";
@@ -150,17 +150,48 @@ class Channels extends Component {
       return (
         <Menu.Item key={channel.id} onClick={() => this.changeChannel(channel)} name={channel.name}
                    style={{opacity: 0.7}} active={channel.id === this.state.activeChannel}>
+          {this.getNotificationCount(channel) && (
+            <Label color="red">{this.getNotificationCount(channel)}</Label>
+          )}
           <span className="channels"># {channel.name}</span>
         </Menu.Item>
       )
     })
   );
 
+  getNotificationCount = channel => {
+    let count = 0;
+    const {notifications} = this.state;
+
+    notifications.forEach(notification => {
+      if (notification.id === channel.id) {
+        count = notification.count
+      }
+    });
+
+    if (count > 0) return count;
+  };
+
   changeChannel = channel => {
     this.props.setCurrentChannel(channel);
+    this.clearNotifications();
     this.setActiveChannel(channel);
     this.props.setPrivateChannel(false);
     this.setState({channel});
+  };
+
+  clearNotifications = () => {
+    const {notifications, channel} = this.state;
+    let index = notifications.findIndex(notification => notification.id === channel.id);
+
+    if (index !== -1) {
+      let updatedNotifications = [...notifications];
+      updatedNotifications[index].total = notifications[index].lastKnownTotal;
+      updatedNotifications[index].count = 0;
+      this.setState({
+        notifications: updatedNotifications
+      })
+    }
   };
 
   setActiveChannel = (channel) => {

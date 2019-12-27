@@ -17,7 +17,8 @@ class Messages extends Component {
     searchLoading: false,
     searchResults: [],
     privateChannel: this.props.isPrivateChannel,
-    privateMessagesRef: firebase.database().ref('privateMessages')
+    privateMessagesRef: firebase.database().ref('privateMessages'),
+    isChannelStarred: false
   };
 
   componentDidMount() {
@@ -101,12 +102,26 @@ class Messages extends Component {
 
   };
 
+  handleStar = () => {
+    this.setState(prevState => ({
+      isChannelStarred: !prevState.isChannelStarred
+    }), () => this.starChannel());
+  };
+
+  starChannel = () => {
+    if (this.state.isChannelStarred) {
+      console.log('Starred')
+    } else {
+      console.log('Unstarred');
+    }
+  };
+
   render() {
-    const {messagesRef, channel, currentUser, messages, numUniqueUsers, searchResults, searchTerm, searchLoading, privateChannel} = this.state;
+    const {messagesRef, channel, currentUser, messages, numUniqueUsers, searchResults, searchTerm, searchLoading, privateChannel, isChannelStarred} = this.state;
     return (
       <Fragment>
         <MessagesHeader channelName={this.displayChannelName(channel)} numUniqueUsers={numUniqueUsers}
-                        handleSearchChange={this.handleSearchChange} searchLoading={searchLoading} isPrivateChannel={privateChannel}/>
+                        handleSearchChange={this.handleSearchChange} searchLoading={searchLoading} isPrivateChannel={privateChannel} handleStar={this.handleStar} isChannelStarred={isChannelStarred}/>
         <Segment className="messages">
           <Comment.Group>
             {searchTerm ? this.displayMessages(searchResults) : this.displayMessages(messages)}
