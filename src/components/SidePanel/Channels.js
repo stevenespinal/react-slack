@@ -12,8 +12,8 @@ class Channels extends Component {
     modal: false,
     channelName: "",
     channelDetails: "",
-    channelsRef: firebase.database().ref('channels'),
-    messagesRef: firebase.database().ref('messages'),
+    channelsRef: firebase.database().ref("channels"),
+    messagesRef: firebase.database().ref("messages"),
     notifications: [],
     user: this.props.currentUser,
     firstLoad: true,
@@ -38,10 +38,7 @@ class Channels extends Component {
     const {channelsRef} = this.state;
     channelsRef.on("child_added", snap => {
       loadedChannels.push(snap.val());
-      // console.log(loadedChannels);
-      this.setState({
-        channels: loadedChannels
-      }, () => this.setFirstChannel());
+      this.setState({channels: loadedChannels}, () => this.setFirstChannel());
       this.addNotificationListener(snap.key);
     });
   };
@@ -87,7 +84,8 @@ class Channels extends Component {
 
     if (firstLoad && channels.length > 0) {
       setCurrentChannel(firstChannel);
-      this.setActiveChannel(firstChannel)
+      this.setActiveChannel(firstChannel);
+      this.setState({channel: firstChannel})
     }
     this.setState({
       firstLoad: false
@@ -162,15 +160,11 @@ class Channels extends Component {
     this.props.setCurrentChannel(channel);
     this.setActiveChannel(channel);
     this.props.setPrivateChannel(false);
-    this.setState({
-      channel
-    })
+    this.setState({channel});
   };
 
   setActiveChannel = (channel) => {
-    this.setState({
-      activeChannel: channel.id
-    })
+    this.setState({activeChannel: channel.id});
   };
 
   render() {
