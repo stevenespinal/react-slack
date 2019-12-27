@@ -51,7 +51,7 @@ class Messages extends Component {
 
   addUsersStarsListener = (channelId, currentUserId) => {
     const {usersRef} = this.state;
-    usersRef.child(currentUserId).child('starred').once('value').then(data =>{
+    usersRef.child(currentUserId).child('starred').once('value').then(data => {
       if (data.val() !== null) {
         const channelIds = Object.keys(data.val());
 
@@ -140,7 +140,9 @@ class Messages extends Component {
     } else {
       console.log('Unstarred');
       usersRef.child(`${currentUser.uid}/starred`).child(channel.id).remove(err => {
-        if (err !== null) console.error(err);
+        if (err !== null) {
+          console.error(err);
+        }
       })
     }
   };
