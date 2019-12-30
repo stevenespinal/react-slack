@@ -81,6 +81,9 @@ class UserPanel extends Component {
               <Button color="green" inverted>
                 <Icon name="image"/> Preview
               </Button>
+              <Button color="red" inverted onClick={this.closeModal}>
+                <Icon name="remove"/> Cancel
+              </Button>
             </Modal.Actions>
           </Modal>
         </Grid.Column>
