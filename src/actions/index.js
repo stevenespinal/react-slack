@@ -1,4 +1,4 @@
-import {SET_USER, CLEAR_USER, SET_CURRENT_CHANNEL, SET_PRIVATE_CHANNEL, SET_USER_POSTS} from "./types";
+import {SET_USER, CLEAR_USER, SET_CURRENT_CHANNEL, SET_PRIVATE_CHANNEL, SET_USER_POSTS, SET_COLORS} from "./types";
 
 
 export const setUser = user => {
@@ -41,6 +41,16 @@ export const setUserPosts = posts => {
     type: SET_USER_POSTS,
     payload: {
       posts
+    }
+  }
+};
+
+export const setColors = (primary, secondary) => {
+  return {
+    type: SET_COLORS,
+    payload: {
+      primary,
+      secondary
     }
   }
 };

@@ -1,4 +1,11 @@
-import {CLEAR_USER, SET_USER, SET_CURRENT_CHANNEL, SET_PRIVATE_CHANNEL, SET_USER_POSTS} from "../actions/types";
+import {
+  CLEAR_USER,
+  SET_USER,
+  SET_CURRENT_CHANNEL,
+  SET_PRIVATE_CHANNEL,
+  SET_USER_POSTS,
+  SET_COLORS
+} from "../actions/types";
 import {combineReducers} from "redux";
 
 const initialUserState = {
@@ -52,9 +59,28 @@ const channel_reducer = (state = initialChannelState, action) => {
   }
 };
 
+const initialColorState = {
+  primary: '#4c3c4c',
+  secondary: '#eee'
+};
+
+const colors_reducer = (state = initialColorState, action) => {
+  switch (action.type) {
+    case SET_COLORS:
+      return {
+        primary: action.payload.primary,
+        secondary: action.payload.secondary
+      };
+    default:
+      return state;
+  }
+};
+
+
 const rootReducer = combineReducers({
   user: user_reducer,
-  channel: channel_reducer
+  channel: channel_reducer,
+  colors: colors_reducer
 });
 
 

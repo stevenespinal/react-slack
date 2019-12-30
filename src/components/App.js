@@ -8,10 +8,10 @@ import {connect} from 'react-redux';
 import './App.css';
 
 
-const App = ({currentUser, currentChannel, isPrivateChannel, userPosts}) => (
-  <Grid columns="equal" className="App" style={{background: "#eee"}}>
-    <ColorPanel currentUser={currentUser} key={currentUser && currentUser.name}/>
-    <SidePanel key={currentUser && currentUser.uid} currentUser={currentUser}/>
+const App = ({currentUser, currentChannel, isPrivateChannel, userPosts, primary, secondary}) => (
+  <Grid columns="equal" className="App" style={{background: secondary}}>
+    <ColorPanel currentUser={currentUser} key={currentUser && currentUser.name} primary={primary} secondary={secondary}/>
+    <SidePanel key={currentUser && currentUser.uid} currentUser={currentUser} primary={primary}/>
 
     <Grid.Column style={{marginLeft: 320}}>
       <Messages key={currentChannel && currentChannel.name} currentChannel={currentChannel} currentUser={currentUser} isPrivateChannel={isPrivateChannel}/>
@@ -27,7 +27,9 @@ const mapStateToProps = (state) => ({
   currentUser: state.user.currentUser,
   currentChannel: state.channel.currentChannel,
   isPrivateChannel: state.channel.isPrivateChannel,
-  userPosts: state.channel.posts
+  userPosts: state.channel.posts,
+  primary: state.colors.primary,
+  secondary: state.colors.secondary
 });
 
 export default connect(mapStateToProps)(App);
