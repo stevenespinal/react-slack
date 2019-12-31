@@ -23,6 +23,13 @@ class MessageForm extends Component {
     emojiPicker: false
   };
 
+  componentWillUnmount() {
+    if (this.state.uploadTask !== null ) {
+      this.state.uploadTask.cancel();
+      this.setState({uploadTask: null})
+    }
+  }
+
   handleChange = event => {
     const {name, value} = event.target;
     this.setState({
@@ -92,7 +99,7 @@ class MessageForm extends Component {
 
   getPath = () => {
     if (this.props.isPrivateChannel) {
-      return `chat/private=${this.state.channel.id}`
+      return `chat/private/${this.state.channel.id}`
     } else {
       return `chat/public`;
     }

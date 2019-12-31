@@ -32,6 +32,9 @@ class Channels extends Component {
     const {channelsRef} = this.state;
     // stops listening & will unsubscribe itself from channels ref
     channelsRef.off();
+    this.state.channels.forEach(channel => {
+      this.state.messagesRef.child(channel.id).off();
+    });
   };
 
   addListeners = () => {
