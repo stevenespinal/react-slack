@@ -101,19 +101,19 @@ class Messages extends Component {
         this.setState({typingUsers})
       }
 
-      this.addToListeners(channelId, this.state.typingRef, 'child_removed');
-
-
-      this.state.connectedRef.on('value', snap => {
-        if (snap.val() === true) {
-          this.state.typingRef.child(channelId).child(this.state.currentUser.uid).onDisconnect().remove(err => {
-            if (err !== null) {
-              console.error(err);
-            }
-          });
-        }
-      });
     })
+    this.addToListeners(channelId, this.state.typingRef, 'child_removed');
+
+
+    this.state.connectedRef.on('value', snap => {
+      if (snap.val() === true) {
+        this.state.typingRef.child(channelId).child(this.state.currentUser.uid).onDisconnect().remove(err => {
+          if (err !== null) {
+            console.error(err);
+          }
+        });
+      }
+    });
   };
 
   addMessageListener = channelId => {
