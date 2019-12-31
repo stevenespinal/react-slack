@@ -148,6 +148,12 @@ class MessageForm extends Component {
     })
   };
 
+  handleKeyDown = event => {
+    if (event.keyCode === 13) {
+      this.sendMessage();
+    }
+  };
+
   handleKeyUp = () => {
     const {message, typingRef, channel, currentUser} = this.state;
     if (message) {
@@ -187,7 +193,6 @@ class MessageForm extends Component {
   };
 
 
-
   render() {
     const {errors, message, loading, modal, percentUploaded, uploadState, emojiPicker} = this.state;
     return (
@@ -202,10 +207,11 @@ class MessageForm extends Component {
           />
         )}
         <Input fluid name="message" style={{marginBottom: "0.7em"}}
-               label={<Button icon={emojiPicker ? "close" : "add"} content={emojiPicker ? "Close" : null} onClick={this.handleTogglePicker}/>} labelPosition="left"
+               label={<Button icon={emojiPicker ? "close" : "add"} content={emojiPicker ? "Close" : null}
+                              onClick={this.handleTogglePicker}/>} labelPosition="left"
                placeholder="Write your message" onChange={this.handleChange} value={message}
                className={errors.some(err => err.message.includes('message')) ? 'error' : ''}
-               onKeyUp={this.handleKeyUp} ref={node => (this.messageInputRef = node)}/>
+               onKeyUp={this.handleKeyUp} onKeyDown={this.handleKeyDown} ref={node => (this.messageInputRef = node)}/>
         <Button.Group icon widths="2">
           <Button color="orange" content="Add Reply" labelPosition="left" icon="edit" onClick={this.sendMessage}
                   disabled={loading}/>
