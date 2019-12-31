@@ -23,7 +23,7 @@ class Starred extends Component {
   }
 
   removeListener = () => {
-    this.state.user.child(`${this.state.user.uid}/starred`).off();
+    this.state.usersRef.child(`${this.state.user.uid}/starred`).off();
   };
 
 

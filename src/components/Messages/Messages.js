@@ -247,13 +247,12 @@ class Messages extends Component {
     }
   };
 
-  displayTypingUsers = users => {
-    return users.length > 0 && users.map(user => (
+  displayTypingUsers = users =>
+    users.length > 0 && users.map(user => (
       <div style={{display: "flex", alignItems: 'center', marginBottom: '0.2em'}} key={user.id}>
-        <span className="user__typing">{user} is typing <Typing/></span>
+        <span className="user__typing">{user.name} is typing <Typing/></span>
       </div>
-    ))
-  };
+    ));
 
   displayMessagesSkeleton = loading => {
     return loading ? (
