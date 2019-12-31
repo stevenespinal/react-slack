@@ -42,8 +42,8 @@ class Channels extends Component {
     const {channelsRef} = this.state;
     channelsRef.on("child_added", snap => {
       loadedChannels.push(snap.val());
-      this.addNotificationListener(snap.key);
       this.setState({channels: loadedChannels}, () => this.setFirstChannel());
+      this.addNotificationListener(snap.key);
     });
   };
 

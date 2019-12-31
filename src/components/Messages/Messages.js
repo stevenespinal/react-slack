@@ -87,21 +87,19 @@ class Messages extends Component {
           id: snap.key,
           name: snap.val()
         });
-        this.setState({
-          typingUsers
-        });
+        this.setState({typingUsers});
       }
 
-      this.addToListeners(channelId, this.state.typingRef, 'child_added');
+    });
+    this.addToListeners(channelId, this.state.typingRef, 'child_added');
 
-      this.state.typingRef.child(channelId).on('child_removed', snap => {
-        const index = typingUsers.findIndex(user => user.uid === snap.key);
+    this.state.typingRef.child(channelId).on('child_removed', snap => {
+      const index = typingUsers.findIndex(user => user.id === snap.key);
 
-        if (index !== -1) {
-          typingUsers = typingUsers.filter(user => user.uid !== snap.key);
-          this.setState({typingUsers})
-        }
-      });
+      if (index !== -1) {
+        typingUsers = typingUsers.filter(user => user.id !== snap.key);
+        this.setState({typingUsers})
+      }
 
       this.addToListeners(channelId, this.state.typingRef, 'child_removed');
 
