@@ -99,6 +99,10 @@ html, body, .App {
     animation-delay: 0.4s;
 }
 
+.emojipicker {
+    position: absolute;
+}
+
 @keyframes loadingFade {
     0% {
         opacity: 0;
