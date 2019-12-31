@@ -89,7 +89,6 @@ class Messages extends Component {
         });
         this.setState({typingUsers});
       }
-
     });
     this.addToListeners(channelId, this.state.typingRef, 'child_added');
 
@@ -100,8 +99,8 @@ class Messages extends Component {
         typingUsers = typingUsers.filter(user => user.id !== snap.key);
         this.setState({typingUsers})
       }
-
     })
+    
     this.addToListeners(channelId, this.state.typingRef, 'child_removed');
 
 
