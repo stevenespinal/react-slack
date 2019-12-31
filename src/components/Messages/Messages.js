@@ -37,6 +37,16 @@ class Messages extends Component {
     }
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.messagesEnd) {
+      this.scrollToBottom();
+    }
+  }
+
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({behavior: 'smooth'})
+  };
+
   addListeners = channelId => {
     this.addMessageListener(channelId);
     this.addTypingListener(channelId)
@@ -171,7 +181,6 @@ class Messages extends Component {
   getMessagesRef = () => {
     const {messagesRef, privateChannel, privateMessagesRef} = this.state;
     return privateChannel ? privateMessagesRef : messagesRef
-
   };
 
   handleStar = () => {
@@ -225,6 +234,7 @@ class Messages extends Component {
           <Comment.Group>
             {searchTerm ? this.displayMessages(searchResults) : this.displayMessages(messages)}
             {this.displayTypingUsers(typingUsers)}
+            <div ref={node => (this.messagesEnd = node)}></div>
           </Comment.Group>
         </Segment>
         <MessageForm getMessagesRef={this.getMessagesRef} messagesRef={messagesRef} currentChannel={channel}
