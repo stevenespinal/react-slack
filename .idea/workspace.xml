@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="9b0614fa-38a5-4bbb-9f0e-b1cf6f2ad5e9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ColorPanel/ColorPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ColorPanel/ColorPanel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Messages/MessageForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Messages/MessageForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MetaPanel/MetaPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MetaPanel/MetaPanel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SidePanel/Channels.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SidePanel/Channels.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/SidePanel/UserPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SidePanel/UserPanel.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,7 +91,7 @@
       <workItem from="1576861342835" duration="36444000" />
       <workItem from="1577218063685" duration="4127000" />
       <workItem from="1577298528298" duration="12543000" />
-      <workItem from="1577483151400" duration="9617000" />
+      <workItem from="1577483151400" duration="11613000" />
     </task>
     <servers />
   </component>
@@ -103,10 +107,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1577386303619" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1577338760390">
+    <state x="616" y="240" key="run.anything.popup" timestamp="1577760927554">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1577338760390" />
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1577760927554" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1577386301540">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

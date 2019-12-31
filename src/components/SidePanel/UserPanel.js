@@ -16,7 +16,8 @@ class UserPanel extends Component {
     metadata: {
       contentType: 'image/jpeg'
     },
-    uploadedCroppedImage: ''
+    uploadedCroppedImage: '',
+    usersRef: firebase.database().ref('users')
   };
 
   openModal = () => {
@@ -75,21 +76,35 @@ class UserPanel extends Component {
   };
 
   uploadCroppedImage = () => {
-   const {storageRef, userRef, blob, metadata} = this.state;
-   storageRef.child(`avatars/user-${userRef.uid}`)
-     .put(blob, metadata)
-     .then(snap => {
-       snap.ref.getDownloadURL().then(downloadURL => {
-         this.setState({
-           uploadedCroppedImage: downloadURL
-         }, () => {
-           this.changeAvatar()
-         });
-       });
-     });
+    const {storageRef, userRef, blob, metadata} = this.state;
+    storageRef.child(`avatars/user-${userRef.uid}`)
+      .put(blob, metadata)
+      .then(snap => {
+        snap.ref.getDownloadURL().then(downloadURL => {
+          this.setState({
+            uploadedCroppedImage: downloadURL
+          }, () => {
+            this.changeAvatar()
+          });
+        });
+      });
   };
 
   changeAvatar = () => {
+    const {userRef, uploadedCroppedImage, usersRef, user} = this.state;
+    userRef.updateProfile({
+      photoURL: uploadedCroppedImage
+    }).then(() => {
+      console.log('Url Updated');
+      this.closeModal();
+    }).catch(err => console.error(err));
+
+    usersRef.child(user.uid)
+      .update({
+        avatar: uploadedCroppedImage
+      }).then(() => {
+      console.log('User avatar updated')
+    }).catch(err => console.error(err));
 
   };
 
@@ -120,10 +135,13 @@ class UserPanel extends Component {
               <Grid stackable centered columns={2}>
                 <Grid.Row centered>
                   <Grid.Column className="ui center aligned grid">
-                    {previewImage && <AvatarEditor ref={node => (this.avatarEditor = node)} image={previewImage} width={120} height={120} border={50} scale={1.2}/>}
+                    {previewImage &&
+                    <AvatarEditor ref={node => (this.avatarEditor = node)} image={previewImage} width={120} height={120}
+                                  border={50} scale={1.2}/>}
                   </Grid.Column>
                   <Grid.Column>
-                    {croppedImage && <Image style={{margin: '3.5em auto'}} width={100} height={100} src={croppedImage}/>}
+                    {croppedImage &&
+                    <Image style={{margin: '3.5em auto'}} width={100} height={100} src={croppedImage}/>}
                   </Grid.Column>
                 </Grid.Row>
               </Grid>

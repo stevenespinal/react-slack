@@ -16,7 +16,8 @@ class MessageForm extends Component {
     uploadState: '',
     uploadTask: null,
     storageRef: firebase.storage().ref(''),
-    percentUploaded: 0
+    percentUploaded: 0,
+    typingRef: firebase.database().ref('typing')
   };
 
   handleChange = event => {
@@ -60,7 +61,7 @@ class MessageForm extends Component {
 
   sendMessage = () => {
     const {getMessagesRef} = this.props;
-    const {message, channel, errors} = this.state;
+    const {message, channel, errors, typingRef, currentUser} = this.state;
     if (message) {
       this.setState({
         loading: true
@@ -70,7 +71,8 @@ class MessageForm extends Component {
           loading: false,
           message: '',
           errors: []
-        })
+        });
+        typingRef.child(channel.id).child(currentUser.uid).remove()
       }).catch(error => {
         console.error(error);
         this.setState({
@@ -143,13 +145,22 @@ class MessageForm extends Component {
     })
   };
 
+  handleKeyUp = () => {
+    const {message, typingRef,channel, currentUser} = this.state;
+    if (message) {
+      typingRef.child(channel.id).child(currentUser.uid).set(currentUser.displayName)
+    } else {
+      typingRef.child(channel.id).child(currentUser.uid).remove()
+    }
+  };
+
   render() {
     const {errors, message, loading, modal, percentUploaded, uploadState} = this.state;
     return (
       <Segment className="message__form">
         <Input fluid name="message" style={{marginBottom: "0.7em"}} label={<Button icon="add"/>} labelPosition="left"
                placeholder="Write your message" onChange={this.handleChange} value={message}
-               className={errors.some(err => err.message.includes('message')) ? 'error' : ''}/>
+               className={errors.some(err => err.message.includes('message')) ? 'error' : ''} onKeyUp={this.handleKeyUp}/>
         <Button.Group icon widths="2">
           <Button color="orange" content="Add Reply" labelPosition="left" icon="edit" onClick={this.sendMessage}
                   disabled={loading}/>
